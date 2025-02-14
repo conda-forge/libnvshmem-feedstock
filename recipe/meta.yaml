@@ -200,11 +200,11 @@ outputs:
         - {{ compiler('cuda') }}
         - openmpi
       files:
-        - compile_perf_test.sh       # [linux64]
+        - compile_perf_test.sh
       commands:
         - test -f $PREFIX/lib/libnvshmem_device.a
         - test -f $PREFIX/lib/libnvshmem.a
-        - bash compile_perf_test.sh  # [linux64]
+        - bash compile_perf_test.sh
 
 about:
   home: https://docs.nvidia.com/nvshmem/index.html
