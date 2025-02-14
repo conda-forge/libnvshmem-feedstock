@@ -105,11 +105,15 @@ outputs:
         - "*libmpi*"
         - "*libpmix*"
         - "*liboshmem*"
-        - "*libhwloc*"  # [aarch64]
       run_exports:
         - {{ pin_subpackage("libnvshmem" ~ soname, max_pin=None) }}
     files:
-      - bin/
+      - bin/examples
+      - bin/perftest
+      - bin/nvshm*
+      - bin/hydra_pmi_proxy
+      - bin/hydra_nameserver
+      - bin/hydra_persist
       - include/nvshmem*.h
       - include/bootstrap_device_host
       - include/device
@@ -117,7 +121,7 @@ outputs:
       - include/device_host_transport
       - include/host
       - include/non_abi
-      - lib/cmake
+      - lib/cmake/nvshmem
       - lib/*nvshmem*.so
       - share/src
     requirements:
@@ -131,12 +135,14 @@ outputs:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - cuda-cudart-dev   # [(cuda_compiler_version or "").startswith("12")]
         - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
-        - libpciaccess
+        - libpciaccess      # [linux64]
+        - libhwloc          # [aarch64]
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libnvshmem" ~ soname, exact=True) }}
         - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart       # [(cuda_compiler_version or "").startswith("12")]
+        - libhwloc          # [aarch64]
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
@@ -200,11 +206,11 @@ outputs:
         - {{ compiler('cuda') }}
         - openmpi
       files:
-        - compile_perf_test.sh       # [linux64]
+        - compile_perf_test.sh
       commands:
         - test -f $PREFIX/lib/libnvshmem_device.a
         - test -f $PREFIX/lib/libnvshmem.a
-        - bash compile_perf_test.sh  # [linux64]
+        - bash compile_perf_test.sh
 
 about:
   home: https://docs.nvidia.com/nvshmem/index.html
