@@ -105,6 +105,7 @@ outputs:
         - "*libmpi*"
         - "*libpmix*"
         - "*liboshmem*"
+        - "*libhwloc*"  # [aarch64]
       run_exports:
         - {{ pin_subpackage("libnvshmem" ~ soname, max_pin=None) }}
     files:
@@ -189,7 +190,6 @@ outputs:
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
-      skip: true  # [not linux64]
       requires:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
@@ -200,11 +200,11 @@ outputs:
         - {{ compiler('cuda') }}
         - openmpi
       files:
-        - compile_perf_test.sh
+        - compile_perf_test.sh       # [linux64]
       commands:
         - test -f $PREFIX/lib/libnvshmem_device.a
         - test -f $PREFIX/lib/libnvshmem.a
-        - bash compile_perf_test.sh
+        - bash compile_perf_test.sh  # [linux64]
 
 about:
   home: https://docs.nvidia.com/nvshmem/index.html
