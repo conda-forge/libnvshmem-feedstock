@@ -19,7 +19,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not (linux64 or aarch64)]
   skip: true  # [cuda_compiler_version in (None, "None") or (aarch64 and (cuda_compiler_version or "").startswith("11"))]
 
@@ -108,7 +108,12 @@ outputs:
       run_exports:
         - {{ pin_subpackage("libnvshmem" ~ soname, max_pin=None) }}
     files:
-      - bin/
+      - bin/examples
+      - bin/perftest
+      - bin/nvshm*
+      - bin/hydra_pmi_proxy
+      - bin/hydra_nameserver
+      - bin/hydra_persist
       - include/nvshmem*.h
       - include/bootstrap_device_host
       - include/device
@@ -116,7 +121,7 @@ outputs:
       - include/device_host_transport
       - include/host
       - include/non_abi
-      - lib/cmake
+      - lib/cmake/nvshmem
       - lib/*nvshmem*.so
       - share/src
     requirements:
@@ -130,12 +135,14 @@ outputs:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - cuda-cudart-dev   # [(cuda_compiler_version or "").startswith("12")]
         - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
-        - libpciaccess
+        - libpciaccess      # [linux64]
+        - libhwloc          # [aarch64]
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libnvshmem" ~ soname, exact=True) }}
         - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart       # [(cuda_compiler_version or "").startswith("12")]
+        - libhwloc          # [aarch64]
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
@@ -189,7 +196,6 @@ outputs:
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
-      skip: true  # [not linux64]
       requires:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
