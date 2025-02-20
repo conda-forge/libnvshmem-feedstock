@@ -30,7 +30,7 @@ export CXXFLAGS="${CXXFLAGS} -fno-use-linker-plugin"
 echo CC =  $CC
 echo CXX =  $CXX
 
-cmake -S $PREFIX/share/src/perftest \
+cmake -S $PREFIX/share/src/examples \
   -DCMAKE_LIBRARY_PATH=${GCC_DIR} \
   -DCMAKE_C_COMPILER=$CC \
   -DCMAKE_CUDA_COMPILER=$PREFIX/bin/nvcc \
