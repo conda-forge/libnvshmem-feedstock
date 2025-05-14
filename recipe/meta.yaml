@@ -1,4 +1,6 @@
 {% set version = "3.2.5" %}
+{% set nvshmem4py_version= "0.1.0" %}
+
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}    # [aarch64]
 {% set extension = "tar.xz" %}
@@ -15,13 +17,16 @@ package:
   version: {{ version }}
 
 source:
-  url: https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/{{ platform }}/libnvshmem-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}
-  sha256: {{ sha256 }}
+  - url: https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/{{ platform }}/libnvshmem-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}
+    sha256: {{ sha256 }}
+  - url: nvshmem4py_cu12-0.1.0.tar.gz
+    folder: nvshmem4py
+    sha256: 755f6364a48bc5cb741ca03492f95e11403ad0d3a366cd11b94ddb804a8f739d
 
 build:
   number: 0
   skip: true  # [not (linux64 or aarch64)]
-  skip: true  # [cuda_compiler_version in (None, "None") or (aarch64 and (cuda_compiler_version or "").startswith("11"))]
+  skip: true  # [cuda_compiler_version in (None, "None") or (cuda_compiler_version or "").startswith("11")]
 
 requirements:
   build:
@@ -60,14 +65,13 @@ outputs:
         - ucx
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - cuda-cudart       # [(cuda_compiler_version or "").startswith("12")]
         - libpciaccess
         - libpmix
         - nccl
         - pmix-bin
         - ucx
-      run_constrained:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
       commands:
         - test -L $PREFIX/lib/libnvshmem_host.so.{{ soname }}
@@ -141,11 +145,10 @@ outputs:
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libnvshmem" ~ soname, exact=True) }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart       # [(cuda_compiler_version or "").startswith("12")]
         - libhwloc          # [aarch64]
-      run_constrained:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
       commands:
         - test -f $PREFIX/bin/hydra_pmi_proxy
@@ -194,7 +197,6 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage("libnvshmem-dev", exact=True) }}
-      run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
       requires:
@@ -205,13 +207,63 @@ outputs:
         - make
         - cuda-version {{ cuda_compiler_version }}                     # [cuda_compiler_version != "None"]
         - {{ compiler('cuda') }}
-        - openmpi
       files:
         - compile_perf_test.sh
       commands:
         - test -f $PREFIX/lib/libnvshmem_device.a
         - test -f $PREFIX/lib/libnvshmem.a
         - bash compile_perf_test.sh
+
+  - name: nvshmem4py
+    version: {{ nvshmem4py_version }}
+    build:
+      ignore_run_exports_from:    # [(cuda_compiler_version or "").startswith("12")]
+        - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("12")]
+        - {{ compiler("cxx") }}   # [(cuda_compiler_version or "").startswith("12")]
+        - cuda-cudart-dev         # [(cuda_compiler_version or "").startswith("12")]
+      string: "py{{ py }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"
+      skip: true  # [py<310 or py>313]
+      skip: true  # [not (cuda_compiler_version or "").startswith("12")]
+      script: bash ${RECIPE_DIR}/nvshmem4py-build.sh
+    requirements:
+      build:
+        - {{ compiler("c") }}
+        - {{ compiler("cuda") }}
+        - {{ compiler("cxx") }}
+        - {{ stdlib("c") }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+      host:
+        - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
+        - cython >=0.29.24                          # needed by pyproject.toml
+        - pip
+        - python {{ python }}
+        - setuptools >=62                           # needed by pyproject.toml
+      run:
+        - {{ pin_subpackage("libnvshmem-dev", exact=True) }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - cuda-core
+        - cuda-python >=12
+        - numpy
+    test:
+      imports:
+        - nvshmem
+        - nvshmem.core
+        - nvshmem.bindings
+      commands:
+        - |
+          python - <<EOF
+          import nvshmem, sys
+          print("nvshmem.__version__ =", nvshmem.__version__)
+          EOF
+    about:
+      home: https://docs.nvidia.com/nvshmem/index.html
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      license_url: https://docs.nvidia.com/nvshmem/api/sla.html
+      summary: C++ accelerated Python bindings for NVIDIA NVSHMEM built with Cython
+      description: |
+        C++ accelerated Python bindings for NVIDIA NVSHMEM built with Cython. NVIDIA NVSHMEM is an NVIDIA based "shared memory" library that provides an easy-to-use CPU-side interface to allocate pinned memory that is symmetrically distributed across a cluster of NVIDIA GPUs.
+      doc_url: https://docs.nvidia.com/nvshmem/api/index.html
 
 about:
   home: https://docs.nvidia.com/nvshmem/index.html
