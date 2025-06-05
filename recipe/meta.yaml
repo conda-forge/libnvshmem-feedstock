@@ -8,9 +8,10 @@
 {% set soname = version.split(".")[0] %}
 {% set cuda_major = environ.get("cuda_compiler_version", "12.6").split(".")[0] %}
 
-{% set sha256 = "042f03d1699b7d27304c8ed5d9d471504b9ea9a0ec7ee73b7f2d6fbc10092668" %}  # [linux64 and (cuda_compiler_version or "").startswith("11")]
-{% set sha256 = "07e484139a0ddddf6b62b757f9ea32ad6caf128acfa83c8e137a5512f0c97875" %}  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-{% set sha256 = "2522f0ff191a39d07b33be52ff5069ca871972fb40ec382657774a7a654282e6" %}  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
+{% set libnvshmem_sha256 = "07e484139a0ddddf6b62b757f9ea32ad6caf128acfa83c8e137a5512f0c97875" %}  # [linux64 and (cuda_compiler_version or "").startswith("12")]
+{% set libnvshmem_sha256 = "2522f0ff191a39d07b33be52ff5069ca871972fb40ec382657774a7a654282e6" %}  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
+{% set nvshmem_python_sha256 = "4b69bb5fd131c1b8988552e0844d1cc9eacd38f95677ee69ae9608c3192ed0e5" %}  # [linux64 and (cuda_compiler_version or "").startswith("12")]
+{% set nvshmem_python_sha256 = "2522f0ff191a39d07b33be52ff5069ca871972fb40ec382657774a7a654282e6" %}  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
 
 package:
   name: libnvshmem-split
@@ -18,10 +19,11 @@ package:
 
 source:
   - url: https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/{{ platform }}/libnvshmem-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}
-    sha256: {{ sha256 }}
-  - url: nvshmem4py_cu12-0.1.0.tar.gz
+    sha256: {{ libnvshmem_sha256 }}
+  - url: https://developer.download.nvidia.com/compute/nvshmem/redist/nvshmem_python/{{ platform }}/nvshmem_python-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}
+  #- url: nvshmem_python-linux-x86_64-0.1.0_cuda12-archive.tar.xz
     folder: nvshmem4py
-    sha256: 755f6364a48bc5cb741ca03492f95e11403ad0d3a366cd11b94ddb804a8f739d
+    sha256: {{ nvshmem_python_sha256 }}
 
 build:
   number: 0
@@ -36,8 +38,9 @@ outputs:
   - name: libnvshmem{{ soname }}
     build:
       ignore_run_exports_from:    # [(cuda_compiler_version or "").startswith("12")]
-        - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("12")]
         - cuda-cudart-dev         # [(cuda_compiler_version or "").startswith("12")]
+      ignore_run_exports:
+        - cuda-version
       missing_dso_whitelist:
         - "*libcuda.so*" # driver
         - "*openmpi*"    # omitted as dependency - customer HPC systems have own versions of MPI installed already
@@ -61,16 +64,13 @@ outputs:
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - cuda-cudart-dev   # [(cuda_compiler_version or "").startswith("12")]
-        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
         - ucx
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - cuda-cudart       # [(cuda_compiler_version or "").startswith("12")]
         - libpciaccess
-        - libpmix
         - nccl
-        - pmix-bin
         - ucx
     test:
       commands:
@@ -139,14 +139,12 @@ outputs:
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - cuda-cudart-dev   # [(cuda_compiler_version or "").startswith("12")]
-        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
         - libpciaccess      # [linux64]
         - libhwloc          # [aarch64]
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libnvshmem" ~ soname, exact=True) }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
         - cuda-cudart       # [(cuda_compiler_version or "").startswith("12")]
         - libhwloc          # [aarch64]
     test:
@@ -218,9 +216,10 @@ outputs:
     version: {{ nvshmem4py_version }}
     build:
       ignore_run_exports_from:    # [(cuda_compiler_version or "").startswith("12")]
-        - {{ compiler('cuda') }}  # [(cuda_compiler_version or "").startswith("12")]
         - {{ compiler("cxx") }}   # [(cuda_compiler_version or "").startswith("12")]
         - cuda-cudart-dev         # [(cuda_compiler_version or "").startswith("12")]
+      ignore_run_exports:
+        - cuda-version
       string: "py{{ py }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"
       skip: true  # [py<310 or py>313]
       skip: true  # [not (cuda_compiler_version or "").startswith("12")]
