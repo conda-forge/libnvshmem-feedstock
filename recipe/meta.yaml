@@ -1,5 +1,5 @@
 {% set version = "3.2.5" %}
-{% set nvshmem4py_version= "0.1.0" %}
+{% set nvshmem4py_version = "0.1.0" %}
 
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}    # [aarch64]
@@ -240,9 +240,10 @@ outputs:
       run:
         - {{ pin_subpackage("libnvshmem-dev", exact=True) }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - cuda-core
-        - cuda-python >=12
+        - cuda-core 0.2.0                           # version 0.2.0 needed for both cuda12 and cuda13 later
+        - cuda-python {{ cuda_major }}              # [(cuda_compiler_version or "").startswith("12")]
         - numpy
+        - python {{ python }}
     test:
       imports:
         - nvshmem
