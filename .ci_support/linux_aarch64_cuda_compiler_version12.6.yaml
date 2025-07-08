@@ -26,10 +26,15 @@ docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 libhwloc:
 - 2.11.2
-nccl:
-- '2'
-openmpi:
-- '4'
+pin_run_as_build:
+  python:
+    min_pin: x.x
+    max_pin: x.x
+python:
+- '3.10'
+- '3.11'
+- '3.12'
+- '3.13'
 target_platform:
 - linux-aarch64
 ucx:
@@ -39,6 +44,4 @@ xz:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-  - cuda_compiler
   - cuda_compiler_version
-  - docker_image

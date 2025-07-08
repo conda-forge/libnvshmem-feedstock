@@ -3,6 +3,10 @@ About libnvshmem-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libnvshmem-feedstock/blob/main/LICENSE.txt)
 
+
+About libnvshmem
+----------------
+
 Home: https://docs.nvidia.com/nvshmem/index.html
 
 Package license: [LicenseRef-NVIDIA-End-User-License-Agreement](https://docs.nvidia.com/nvshmem/api/sla.html)
@@ -13,6 +17,20 @@ Documentation: https://docs.nvidia.com/nvshmem/api/index.html
 
 NVIDIA NVSHMEM is an NVIDIA based "shared memory" library that provides an easy-to-use CPU-side interface to allocate pinned memory that is symmetrically distributed across a cluster of NVIDIA GPUs.
 NVSHMEM can significantly reduce communication and coordination overheads by allowing programmers to perform these operations from within CUDA kernels and on CUDA streams.
+
+
+About nvshmem4py
+----------------
+
+Home: https://docs.nvidia.com/nvshmem/index.html
+
+Package license: [LicenseRef-NVIDIA-End-User-License-Agreement](https://docs.nvidia.com/nvshmem/api/sla.html)
+
+Summary: C++ accelerated Python bindings for NVIDIA NVSHMEM built with Cython
+
+Documentation: https://docs.nvidia.com/nvshmem/api/index.html
+
+C++ accelerated Python bindings for NVIDIA NVSHMEM built with Cython. NVIDIA NVSHMEM is an NVIDIA based "shared memory" library that provides an easy-to-use CPU-side interface to allocate pinned memory that is symmetrically distributed across a cluster of NVIDIA GPUs.
 
 
 Current build status
@@ -33,24 +51,17 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11</td>
+              <td>linux_64_cuda_compiler_version12.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24843&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13</td>
+              <td>linux_aarch64_cuda_compiler_version12.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24843&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_aarch64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24843&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version12.6" alt="variant">
                 </a>
               </td>
             </tr>
@@ -69,6 +80,7 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libnvshmem--dev-green.svg)](https://anaconda.org/conda-forge/libnvshmem-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libnvshmem-dev.svg)](https://anaconda.org/conda-forge/libnvshmem-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libnvshmem-dev.svg)](https://anaconda.org/conda-forge/libnvshmem-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libnvshmem-dev.svg)](https://anaconda.org/conda-forge/libnvshmem-dev) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libnvshmem--static-green.svg)](https://anaconda.org/conda-forge/libnvshmem-static) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libnvshmem-static.svg)](https://anaconda.org/conda-forge/libnvshmem-static) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libnvshmem-static.svg)](https://anaconda.org/conda-forge/libnvshmem-static) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libnvshmem-static.svg)](https://anaconda.org/conda-forge/libnvshmem-static) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libnvshmem3-green.svg)](https://anaconda.org/conda-forge/libnvshmem3) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libnvshmem3.svg)](https://anaconda.org/conda-forge/libnvshmem3) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libnvshmem3.svg)](https://anaconda.org/conda-forge/libnvshmem3) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libnvshmem3.svg)](https://anaconda.org/conda-forge/libnvshmem3) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nvshmem4py-green.svg)](https://anaconda.org/conda-forge/nvshmem4py) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nvshmem4py.svg)](https://anaconda.org/conda-forge/nvshmem4py) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nvshmem4py.svg)](https://anaconda.org/conda-forge/nvshmem4py) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nvshmem4py.svg)](https://anaconda.org/conda-forge/nvshmem4py) |
 
 Installing libnvshmem
 =====================
@@ -80,16 +92,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `libnvshmem-dev, libnvshmem-static, libnvshmem3` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libnvshmem-dev, libnvshmem-static, libnvshmem3, nvshmem4py` can be installed with `conda`:
 
 ```
-conda install libnvshmem-dev libnvshmem-static libnvshmem3
+conda install libnvshmem-dev libnvshmem-static libnvshmem3 nvshmem4py
 ```
 
 or with `mamba`:
 
 ```
-mamba install libnvshmem-dev libnvshmem-static libnvshmem3
+mamba install libnvshmem-dev libnvshmem-static libnvshmem3 nvshmem4py
 ```
 
 It is possible to list all of the versions of `libnvshmem-dev` available on your platform with `conda`:
