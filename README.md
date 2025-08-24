@@ -51,17 +51,31 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_cuda_compiler_version12.6</td>
+              <td>linux_64_c_compiler_version13c_stdlib_version2.28cuda_compiler_version12.9cxx_compiler_version13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24843&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version13c_stdlib_version2.28cuda_compiler_version12.9cxx_compiler_version13" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_cuda_compiler_version12.6</td>
+              <td>linux_64_c_compiler_version14c_stdlib_version2.28cuda_compiler_version13.0cxx_compiler_version14</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24843&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version12.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version14c_stdlib_version2.28cuda_compiler_version13.0cxx_compiler_version14" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_c_compiler_version13c_stdlib_version2.34cuda_compiler_version12.9cxx_compiler_version13</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24843&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version13c_stdlib_version2.34cuda_compiler_version12.9cxx_compiler_version13" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_c_compiler_version14c_stdlib_version2.34cuda_compiler_version13.0cxx_compiler_version14</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24843&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libnvshmem-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version14c_stdlib_version2.34cuda_compiler_version13.0cxx_compiler_version14" alt="variant">
                 </a>
               </td>
             </tr>

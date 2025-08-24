@@ -1,13 +1,11 @@
-arm_variant_type:
-- sbsa
 c_compiler:
 - gcc
 c_compiler_version:
-- '13'
+- '14'
 c_stdlib:
 - sysroot
 c_stdlib_version:
-- '2.34'
+- '2.28'
 cdt_name:
 - conda
 channel_sources:
@@ -17,15 +15,13 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '12.6'
+- '13.0'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '13'
+- '14'
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
-libhwloc:
-- 2.11.2
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -36,12 +32,13 @@ python:
 - '3.12'
 - '3.13'
 target_platform:
-- linux-aarch64
+- linux-64
 ucx:
-- '1.18'
+- '1.19'
 xz:
 - '5'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - c_stdlib_version
   - cuda_compiler_version
