@@ -218,7 +218,7 @@ outputs:
         - cuda-version
       string: "py{{ py }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"
       skip: true  # [py<310 or py>313]
-      skip: true  # [not (cuda_compiler_version or "").startswith(("12", "13"))]
+      skip: true  # [cuda_compiler_version != "None"]
       script: bash ${RECIPE_DIR}/nvshmem4py-build.sh
     requirements:
       build:
