@@ -26,7 +26,7 @@ source:
     sha256: {{ nvshmem_python_sha256 }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not (linux64 or aarch64)]
   skip: true  # [cuda_compiler_version in (None, "None") or (cuda_compiler_version or "").startswith("11")]
 
@@ -218,7 +218,7 @@ outputs:
         - cuda-version
       string: "py{{ py }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"
       skip: true  # [py<310 or py>313]
-      skip: true  # [cuda_compiler_version != "None"]
+      skip: true  # [cuda_compiler_version in (None, "None") or (cuda_compiler_version or "").startswith("11")]
       script: bash ${RECIPE_DIR}/nvshmem4py-build.sh
     requirements:
       build:
