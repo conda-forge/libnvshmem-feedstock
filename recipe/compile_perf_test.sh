@@ -40,4 +40,4 @@ cmake -S $PREFIX/share/src/examples \
   -DCUDA_HOME=$PREFIX \
   -DCMAKE_CUDA_ARCHITECTURES="${SM}"
 
-cmake --build .
+cmake --build . -j"$(nproc)"
