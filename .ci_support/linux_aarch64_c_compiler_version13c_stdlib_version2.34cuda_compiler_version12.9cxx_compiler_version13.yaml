@@ -1,3 +1,5 @@
+arm_variant_type:
+- sbsa
 c_compiler:
 - gcc
 c_compiler_version:
@@ -6,8 +8,6 @@ c_stdlib:
 - sysroot
 c_stdlib_version:
 - '2.34'
-cdt_name:
-- conda
 channel_sources:
 - conda-forge
 channel_targets:
@@ -22,8 +22,6 @@ cxx_compiler_version:
 - '13'
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
-libhwloc:
-- 2.11.2
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -37,8 +35,6 @@ target_platform:
 - linux-aarch64
 ucx:
 - '1.19'
-xz:
-- '5'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
