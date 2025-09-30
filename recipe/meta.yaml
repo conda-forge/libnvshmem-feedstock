@@ -271,6 +271,7 @@ about:
   doc_url: https://docs.nvidia.com/nvshmem/api/index.html
 
 extra:
+  compute-subdir: nvshmem
   feedstock-name: libnvshmem
   recipe-maintainers:
     - conda-forge/cuda
