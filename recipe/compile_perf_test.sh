@@ -34,6 +34,7 @@ cmake -S $PREFIX/share/src/examples \
   -DCMAKE_C_COMPILER=$CC \
   -DCMAKE_CUDA_COMPILER=$PREFIX/bin/nvcc \
   -DCMAKE_CXX_COMPILER=$CXX \
+  -DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH;$PREFIX/${targetsDir}/lib/cmake" \
   -DCUDAToolkit_INCLUDE_DIRECTORIES="$PREFIX/include;$PREFIX/${targetsDir}/include" \
   -DNVSHMEM_MPI_SUPPORT=0 \
   -DNVSHMEM_PREFIX=$PREFIX \

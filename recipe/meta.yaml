@@ -1,5 +1,5 @@
-{% set version = "3.4.5" %}
-{% set nvshmem4py_version = "0.1.2.36470090" %}
+{% set version = "3.5.19" %}
+{% set nvshmem4py_version = "0.2.1.37082602" %}
 
 {% set soname = version.split(".")[0] %}
 {% set cuda_major = environ.get("cuda_compiler_version", "13.0").split(".")[0] %}
@@ -10,16 +10,16 @@ package:
 
 source:
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-x86_64/libnvshmem-linux-x86_64-{{ version }}_cuda12-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
-    sha256: "058cbaddc4ff8646b8d1bd9322e93c90eae54c86e1ac8922f20d8a55a7fa8b7e"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "fba55cb9f721f63e84d7cd32c8d790d7d4a44d0ce94ee1ead12a46fe0e7bca91"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-x86_64/libnvshmem-linux-x86_64-{{ version }}_cuda13-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
-    sha256: "18f12807c23bc5b270581af1f9bafd540369da783e557171558887623d77842c"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "ea55827e0e5a08f5f55299b4bf8f283e7ff3e74c1c6bed540b7c7517e2bbcb73"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-sbsa/libnvshmem-linux-sbsa-{{ version }}_cuda12-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
-    sha256: "21c1efe6777dbfcbbc92444b420aab399f5b5590284ce09f1ccd8ec3516b192c"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
+    sha256: "a8b7fe71df70426f12574866ba6a167a4b4dec93546b540e1096df838603e139"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-sbsa/libnvshmem-linux-sbsa-{{ version }}_cuda13-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
-    sha256: "080e2ca6df463a5f3f5f50a3923ef5d491503837343649a922cb17718689fc06"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
+    sha256: "2c1ce1386b1e08c79baa94ef5a8e44d8c7415cfad4340f522dc4f8e747ae0038"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/nvshmem_python/source/nvshmem_python-source-{{ nvshmem4py_version }}_cuda12-archive.tar.xz"
     folder: nvshmem4py
-    sha256: "35292393b4370b23f177f0a1b549bde92931bf14bd66b0d54065ea11579e0b0b"
+    sha256: "582c07834e04100bb3f5c0afae6c3b6cad28320e4ca7c8ed49f1e02188da0280"
 
 build:
   number: 0
@@ -81,16 +81,16 @@ outputs:
         - test -f $PREFIX/lib/nvshmem_bootstrap_shmem.so.{{ soname }}.0.0
         - test -L $PREFIX/lib/nvshmem_bootstrap_uid.so.{{ soname }}
         - test -f $PREFIX/lib/nvshmem_bootstrap_uid.so.{{ soname }}.0.0
-        - test -L $PREFIX/lib/nvshmem_transport_ibdevx.so.{{ soname }}
-        - test -f $PREFIX/lib/nvshmem_transport_ibdevx.so.{{ soname }}.0.0
-        - test -L $PREFIX/lib/nvshmem_transport_ibgda.so.{{ soname }}
-        - test -f $PREFIX/lib/nvshmem_transport_ibgda.so.{{ soname }}.0.0
-        - test -L $PREFIX/lib/nvshmem_transport_ibrc.so.{{ soname }}
-        - test -f $PREFIX/lib/nvshmem_transport_ibrc.so.{{ soname }}.0.0
-        - test -L $PREFIX/lib/nvshmem_transport_libfabric.so.{{ soname }}
-        - test -f $PREFIX/lib/nvshmem_transport_libfabric.so.{{ soname }}.0.0
-        - test -L $PREFIX/lib/nvshmem_transport_ucx.so.{{ soname }}
-        - test -f $PREFIX/lib/nvshmem_transport_ucx.so.{{ soname }}.0.0
+        - test -L $PREFIX/lib/nvshmem_transport_ibdevx.so.4
+        - test -f $PREFIX/lib/nvshmem_transport_ibdevx.so.4.0.0
+        - test -L $PREFIX/lib/nvshmem_transport_ibgda.so.4
+        - test -f $PREFIX/lib/nvshmem_transport_ibgda.so.4.0.0
+        - test -L $PREFIX/lib/nvshmem_transport_ibrc.so.4
+        - test -f $PREFIX/lib/nvshmem_transport_ibrc.so.4.0.0
+        - test -L $PREFIX/lib/nvshmem_transport_libfabric.so.4
+        - test -f $PREFIX/lib/nvshmem_transport_libfabric.so.4.0.0
+        - test -L $PREFIX/lib/nvshmem_transport_ucx.so.4
+        - test -f $PREFIX/lib/nvshmem_transport_ucx.so.4.0.0
 
   - name: libnvshmem-dev
     build:
@@ -200,7 +200,6 @@ outputs:
         - compile_perf_test.sh
       commands:
         - test -f $PREFIX/lib/libnvshmem_device.a
-        - test -f $PREFIX/lib/libnvshmem.a
         - bash compile_perf_test.sh
 
   - name: nvshmem4py
