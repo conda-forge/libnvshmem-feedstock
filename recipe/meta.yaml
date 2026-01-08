@@ -22,7 +22,7 @@ source:
     sha256: "35292393b4370b23f177f0a1b549bde92931bf14bd66b0d54065ea11579e0b0b"
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not (linux64 or aarch64) or cuda_compiler_version in (None, "None")]
 
 requirements:

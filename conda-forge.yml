@@ -1,15 +1,15 @@
-github:
-  branch_name: main
-  tooling_branch_name: main
-conda_build:
-  error_overlinking: true
-conda_forge_output_validation: true
-provider:
-  linux_aarch64: default
-build_platform:
-  linux_aarch64: linux_64
 bot:
   version_updates:
     nvidia:
       compute_subdir: nvshmem
       json_name: libnvshmem
+build_platform:
+  linux_aarch64: linux_64
+conda_build:
+  error_overlinking: true
+conda_forge_output_validation: true
+github:
+  branch_name: main
+  tooling_branch_name: main
+provider:
+  linux_aarch64: default
