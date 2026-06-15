@@ -29,7 +29,12 @@ export CXXFLAGS="${CXXFLAGS} -fno-use-linker-plugin"
 echo CC =  $CC
 echo CXX =  $CXX
 
+# NVSHMEM 3.7.0's examples/CMakeLists.txt does `include(NVSHMEMCxxStandard)` from
+# `../cmake_config` (i.e. share/src/cmake_config), but the archive only ships that
+# module under {bootstrap,transport}-plugins/cmake_config. Add an existing copy to
+# the module path so the include resolves.
 cmake -S $PREFIX/share/src/examples \
+  -DCMAKE_MODULE_PATH="$PREFIX/share/src/transport-plugins/cmake_config" \
   -DCMAKE_LIBRARY_PATH=${GCC_DIR} \
   -DCMAKE_C_COMPILER=$CC \
   -DCMAKE_CUDA_COMPILER=$PREFIX/bin/nvcc \
