@@ -1,4 +1,4 @@
-{% set version = "3.7.0" %}
+{% set version = "3.7.1" %}
 {% set nvshmem4py_version = "0.3.1.38197669" %}
 {% set cuda_core_version = "1.0.1" %}
 
@@ -11,13 +11,13 @@ package:
 
 source:
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-x86_64/libnvshmem-linux-x86_64-{{ version }}_cuda12-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
-    sha256: "7c65a151fa2d55d25650fdbdd368467942743f64f3a3e66f01ef36c55e68c955"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "bd58642cf713c4b4fdf621cc61fc6fed5aaca4346da6a23e4a7e7eb9083afced"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-x86_64/libnvshmem-linux-x86_64-{{ version }}_cuda13-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
-    sha256: "f954ed91fa270f4b905391e03d808f60c73b894d88ef0aae865916d685353b8c"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "cbbfcef4c59f3a36e0ba7b5cd3d430e692f15765126c0463879e510190267a57"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-sbsa/libnvshmem-linux-sbsa-{{ version }}_cuda12-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
-    sha256: "b82e2f0f9cb340f530ca169307fbde228b60b1477713beb04efb4a068486d1ed"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
+    sha256: "78250b871ba0931d2a44bcc88ec7d603455d7aadf3e36b893978b29c2890de18"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/libnvshmem/linux-sbsa/libnvshmem-linux-sbsa-{{ version }}_cuda13-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
-    sha256: "e298ec8fa7a60f0b102fbaa72dc0b4058359de72cc97f981fa878fe24950faba"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
+    sha256: "88372c8d7c25ad23d5f63dc52f22f53fb319c3c33cb63e32ba74bf9662160d74"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/nvshmem_python/source/nvshmem_python-source-{{ nvshmem4py_version }}_cuda13-archive.tar.xz"
     folder: nvshmem4py
     sha256: "4a442f567577686738a6a3a5e9195953bd6f650ce09c03e0ee5e1b320a4dd27f"
