@@ -19,7 +19,7 @@ source:
     sha256: "62b25c8d30d9afb5016699753a6ab96323b8738011072d34c9d970318f7e0d0b"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
   - url: "https://developer.download.nvidia.com/compute/nvshmem/redist/nvshmem_python/source/nvshmem_python-source-{{ nvshmem4py_version }}_cuda13-archive.tar.xz"
     folder: nvshmem4py
-    sha256: "4a442f567577686738a6a3a5e9195953bd6f650ce09c03e0ee5e1b320a4dd27f"
+    sha256: "53317d2b759a570020c96c0a39ac67ca3a802ac35d81f7ca345b2877270ffd39"
 
 build:
   number: 0
