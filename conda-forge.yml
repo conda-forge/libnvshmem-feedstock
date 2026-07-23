@@ -3,8 +3,6 @@ bot:
     nvidia:
       compute_subdir: nvshmem
       json_name: libnvshmem
-build_platform:
-  linux_aarch64: linux_64
 conda_build:
   error_overlinking: true
 conda_forge_output_validation: true
