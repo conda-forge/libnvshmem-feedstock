@@ -2,7 +2,6 @@
 {% set nvshmem4py_version = "0.3.1.38523630" %}
 
 {% set soname = version.split(".")[0] %}
-{% set cuda_major = environ.get("cuda_compiler_version", "13.0").split(".")[0] %}
 
 package:
   name: libnvshmem-split
