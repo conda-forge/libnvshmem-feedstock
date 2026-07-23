@@ -1,6 +1,5 @@
 {% set version = "3.7.2" %}
 {% set nvshmem4py_version = "0.3.1.38523630" %}
-{% set cuda_core_version = "1.0.1" %}
 
 {% set soname = version.split(".")[0] %}
 {% set cuda_major = environ.get("cuda_compiler_version", "13.0").split(".")[0] %}
@@ -225,10 +224,14 @@ outputs:
         - pip
         - python {{ python }}
         - setuptools >=62                           # needed by pyproject.toml
+        - setuptools_scm
+        - wheel
       run:
+        - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libnvshmem-dev", exact=True) }}
-        - cuda-core {{ cuda_core_version }}
-        - cuda-python {{ cuda_major }}
+        - cuda-core >=0.5.0
+        - cuda-pathfinder >=1.2.3
+        - cuda-python
         - numpy
     test:
       imports:
