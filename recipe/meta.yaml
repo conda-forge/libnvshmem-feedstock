@@ -1,5 +1,5 @@
 {% set version = "3.7.2" %}
-{% set nvshmem4py_version = "0.3.1.38197669" %}
+{% set nvshmem4py_version = "0.3.1.38523630" %}
 {% set cuda_core_version = "1.0.1" %}
 
 {% set soname = version.split(".")[0] %}
